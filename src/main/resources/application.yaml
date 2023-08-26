@@ -35,4 +35,4 @@ spring:
     show-sql: true
 
 server:
-  port: ${PROFILES_SERVICE_PORT}
+  port: ${SERVER_PORT}
