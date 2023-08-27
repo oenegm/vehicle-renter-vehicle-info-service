@@ -1,11 +1,7 @@
 package com.project.vehiclerentervehicleinfoservice.service
 
-import com.project.vehiclerentervehicleinfoservice.dao.BrandDao
-import com.project.vehiclerentervehicleinfoservice.mapper.BrandMapper
-import org.springframework.stereotype.Service
+import com.project.vehiclerentervehicleinfoservice.dto.BrandDto
 
-@Service
-class BrandService(val dao: BrandDao, private val brandMapper: BrandMapper) {
-
-    fun getBrands() = dao.getBrands().map(brandMapper::toDto)
+fun interface BrandService {
+    fun getBrands(): List<BrandDto>
 }
