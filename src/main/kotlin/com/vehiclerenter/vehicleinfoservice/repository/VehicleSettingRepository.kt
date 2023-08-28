@@ -1,6 +1,6 @@
-package com.project.vehiclerentervehicleinfoservice.repository
+package com.vehiclerenter.vehicleinfoservice.repository
 
-import com.project.vehiclerentervehicleinfoservice.entity.VehicleSetting
+import com.vehiclerenter.vehicleinfoservice.entity.VehicleSetting
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 

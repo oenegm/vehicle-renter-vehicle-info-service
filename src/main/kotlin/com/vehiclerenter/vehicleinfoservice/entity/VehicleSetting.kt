@@ -1,4 +1,4 @@
-package com.project.vehiclerentervehicleinfoservice.entity
+package com.vehiclerenter.vehicleinfoservice.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull

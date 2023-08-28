@@ -1,4 +1,4 @@
-package com.project.vehiclerentervehicleinfoservice.dto
+package com.vehiclerenter.vehicleinfoservice.dto
 
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull

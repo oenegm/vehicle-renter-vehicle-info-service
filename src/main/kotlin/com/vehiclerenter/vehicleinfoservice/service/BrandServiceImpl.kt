@@ -1,7 +1,7 @@
-package com.project.vehiclerentervehicleinfoservice.service
+package com.vehiclerenter.vehicleinfoservice.service
 
-import com.project.vehiclerentervehicleinfoservice.dao.BrandDao
-import com.project.vehiclerentervehicleinfoservice.mapper.BrandMapper
+import com.vehiclerenter.vehicleinfoservice.dao.BrandDao
+import com.vehiclerenter.vehicleinfoservice.mapper.BrandMapper
 import org.springframework.stereotype.Service
 
 @Service

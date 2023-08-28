@@ -1,7 +1,7 @@
-package com.project.vehiclerentervehicleinfoservice.mapper
+package com.vehiclerenter.vehicleinfoservice.mapper
 
-import com.project.vehiclerentervehicleinfoservice.dto.BrandDto
-import com.project.vehiclerentervehicleinfoservice.entity.Brand
+import com.vehiclerenter.vehicleinfoservice.dto.BrandDto
+import com.vehiclerenter.vehicleinfoservice.entity.Brand
 import org.mapstruct.*
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

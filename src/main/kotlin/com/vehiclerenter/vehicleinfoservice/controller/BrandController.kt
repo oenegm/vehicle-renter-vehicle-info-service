@@ -1,7 +1,7 @@
-package com.project.vehiclerentervehicleinfoservice.controller
+package com.vehiclerenter.vehicleinfoservice.controller
 
-import com.project.vehiclerentervehicleinfoservice.dto.BrandDto
-import com.project.vehiclerentervehicleinfoservice.service.BrandService
+import com.vehiclerenter.vehicleinfoservice.dto.BrandDto
+import com.vehiclerenter.vehicleinfoservice.service.BrandService
 import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.server.mvc.linkTo
 import org.springframework.http.HttpStatus
