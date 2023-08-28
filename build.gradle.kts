@@ -38,6 +38,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.slf4j:slf4j-api:$sl4jVersion")
 	implementation("io.github.oshai:kotlin-logging-jvm:$kotlinLoggingVersion")
 	implementation("com.github.gavlyukovskiy:datasource-proxy-spring-boot-starter:$dataSourceProxyVersion")
