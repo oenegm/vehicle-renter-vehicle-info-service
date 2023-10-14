@@ -103,6 +103,6 @@ open class Vehicle {
     @Column(name = "last_rented_at")
     open var lastRentedAt: Instant? = null
 
-    @OneToMany(mappedBy = "vehicle")
-    open var vehicleSettings: MutableSet<VehicleSetting> = mutableSetOf()
+    @OneToOne(mappedBy = "vehicle")
+    open var vehicleSettings: VehicleSettings? = null
 }

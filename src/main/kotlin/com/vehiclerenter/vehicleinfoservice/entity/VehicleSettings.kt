@@ -6,12 +6,12 @@ import java.util.*
 
 @Entity
 @Table(name = "vehicle_settings")
-open class VehicleSetting {
+open class VehicleSettings {
     @Id
     @Column(name = "id", nullable = false)
     open var id: UUID? = null
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id")
     open var vehicle: Vehicle? = null
 
