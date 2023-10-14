@@ -17,9 +17,9 @@ open class VehicleSettings {
 
     @NotNull
     @Column(name = "is_visible", nullable = false)
-    open var isVisible: Boolean? = false
+    open var isVisible: Boolean = false
 
     @NotNull
     @Column(name = "is_out_of_order", nullable = false)
-    open var isOutOfOrder: Boolean? = false
+    open var isOutOfOrder: Boolean = false
 }

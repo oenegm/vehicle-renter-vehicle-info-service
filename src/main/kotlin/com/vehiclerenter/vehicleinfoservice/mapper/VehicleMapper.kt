@@ -12,12 +12,14 @@ abstract class VehicleMapper {
         Mapping(source = "brandName", target = "brand.name"),
         Mapping(source = "brandImageLink", target = "brand.imageLink"),
         Mapping(source = "vehicleSettingsId", target = "vehicleSettings.id"),
-        Mapping(source = "vehicleSettingsIsVisible", target = "vehicleSettings.isVisible"),
-        Mapping(source = "vehicleSettingsIsOutOfOrder", target = "vehicleSettings.isOutOfOrder")
     )
     abstract fun toEntity(vehicleDto: VehicleDto): Vehicle
 
     @InheritInverseConfiguration(name = "toEntity")
+    @Mappings(
+        Mapping(source = "vehicleSettings.visible", target = "vehicleSettingsIsVisible"),
+        Mapping(source = "vehicleSettings.outOfOrder", target = "vehicleSettingsIsOutOfOrder")
+    )
     abstract fun toDto(vehicle: Vehicle): VehicleDto
 
     @InheritConfiguration(name = "toEntity")

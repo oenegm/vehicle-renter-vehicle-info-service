@@ -1,9 +1,48 @@
+#spring:
+#  profiles:
+#    active: dev
+#  cloud:
+#    config:
+#      uri: ${CONFIG_SERVER_URI}
+#
+#server:
+#  port: ${SERVER_PORT}
+
+debug: true
+
+logging:
+  level:
+    httpclient:
+      wire: DEBUG
+    org:
+      springframework:
+        web:
+          servlet.DispatcherServlet: DEBUG
+          client.RestTemplate: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type.descriptor.sql.BasicBinder: TRACE
+
 spring:
-  profiles:
-    active: dev
-  cloud:
-    config:
-      uri: ${CONFIG_SERVER_URI}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}
+          jwk-set-uri: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
 
 server:
   port: ${SERVER_PORT}
