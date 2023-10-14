@@ -18,17 +18,17 @@ class BrandController(val service: BrandService) {
 
     @GetMapping
     fun getBrands(
-        @RequestHeader("Accept-Language", required = false) locale: Locale?
+        @RequestHeader("Accept-Language", required = false, defaultValue = "ENGLISH") locale: Locale
     ): ResponseEntity<CollectionModel<BrandDto>> {
 
-        val model = CollectionModel.of(service.getBrands())
-
-        model.add(
-            linkTo<BrandController> { getBrands(locale) }.withSelfRel()
-        )
+        val brands = service.getBrands()
 
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(model)
+            .body(
+                CollectionModel
+                    .of(brands)
+                    .add(linkTo<BrandController> { getBrands(locale) }.withSelfRel())
+            )
     }
 }

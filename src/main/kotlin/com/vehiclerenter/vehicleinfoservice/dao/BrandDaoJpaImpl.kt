@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 class BrandDaoJpaImpl(val repository: BrandRepository) : BrandDao {
 
-    override fun getBrands(): List<Brand> = repository.findAll()
+    override fun findAll(): List<Brand> = repository.findAll()
 }

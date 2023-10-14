@@ -5,7 +5,7 @@ import java.util.*
 
 interface VehicleDao {
 
-    fun getVehicles(): List<Vehicle>
+    fun findAll(): List<Vehicle>
 
     fun findById(id: UUID): Vehicle?
 

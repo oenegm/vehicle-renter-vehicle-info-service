@@ -105,4 +105,7 @@ open class Vehicle {
 
     @OneToOne(mappedBy = "vehicle")
     open var vehicleSettings: VehicleSettings? = null
+
+    @Column(name = "is_deleted")
+    open var isDeleted: Boolean = false
 }
