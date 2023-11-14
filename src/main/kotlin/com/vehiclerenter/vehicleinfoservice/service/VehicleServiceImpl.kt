@@ -48,9 +48,9 @@ class VehicleServiceImpl(val dao: VehicleDao, val mapper: VehicleMapper) : Vehic
 
         deletedVehicle?.let {
 
-            deletedVehicle.isDeleted = true
+            it.isDeleted = true
 
-            dao.save(deletedVehicle)
+            dao.save(it)
         } ?: throw RuntimeException("Vehicle with id $vehicleId not found")
     }
 }

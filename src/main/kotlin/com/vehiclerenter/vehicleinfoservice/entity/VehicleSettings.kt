@@ -2,8 +2,12 @@ package com.vehiclerenter.vehicleinfoservice.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
+import lombok.Getter
+import lombok.Setter
 import java.util.*
 
+@Getter
+@Setter
 @Entity
 @Table(name = "vehicle_settings")
 open class VehicleSettings {

@@ -5,17 +5,17 @@ import com.vehiclerenter.vehicleinfoservice.entity.VehicleSettings
 import org.mapstruct.*
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
-abstract class VehicleSettingsMapper {
+interface VehicleSettingsMapper {
 
     @Mapping(source = "vehicleId", target = "vehicle.id")
-    abstract fun toEntity(vehicleSettingsDto: VehicleSettingsDto): VehicleSettings
+    fun toEntity(vehicleSettingsDto: VehicleSettingsDto): VehicleSettings
 
-    @Mapping(source = "vehicle.id", target = "vehicleId")
-    abstract fun toDto(vehicleSettings: VehicleSettings): VehicleSettingsDto
+    @InheritInverseConfiguration(name = "toEntity")
+    fun toDto(vehicleSettings: VehicleSettings): VehicleSettingsDto
 
-    @Mapping(source = "vehicleId", target = "vehicle.id")
+    @InheritConfiguration(name = "toEntity")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    abstract fun partialUpdate(
+    fun partialUpdate(
         vehicleSettingsDto: VehicleSettingsDto,
         @MappingTarget vehicleSettings: VehicleSettings
     ): VehicleSettings
