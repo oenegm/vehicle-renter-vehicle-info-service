@@ -17,8 +17,8 @@ interface VehicleMapper {
 
     @InheritInverseConfiguration(name = "toEntity")
     @Mappings(
-        Mapping(source = "vehicleSettings.visible", target = "vehicleSettingsIsVisible"),
-        Mapping(source = "vehicleSettings.outOfOrder", target = "vehicleSettingsIsOutOfOrder")
+        Mapping(source = "vehicleSettings.visible", target = "vehicleSettingsVisible"),
+        Mapping(source = "vehicleSettings.outOfService", target = "vehicleSettingsOutOfOrder")
     )
     fun toDto(vehicle: Vehicle): VehicleDto
 

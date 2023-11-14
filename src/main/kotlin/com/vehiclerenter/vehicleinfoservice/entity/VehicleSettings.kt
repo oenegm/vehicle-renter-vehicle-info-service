@@ -10,20 +10,20 @@ import java.util.*
 @Setter
 @Entity
 @Table(name = "vehicle_settings")
-open class VehicleSettings {
+class VehicleSettings {
     @Id
     @Column(name = "id", nullable = false)
-    open var id: UUID? = null
+    var id: UUID? = null
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id")
-    open var vehicle: Vehicle? = null
+    var vehicle: Vehicle? = null
 
     @NotNull
-    @Column(name = "is_visible", nullable = false)
-    open var isVisible: Boolean = false
+    @Column(name = "visible", nullable = false)
+    var visible: Boolean = false
 
     @NotNull
-    @Column(name = "is_out_of_order", nullable = false)
-    open var isOutOfOrder: Boolean = false
+    @Column(name = "out_of_service", nullable = false)
+    var outOfService: Boolean = false
 }

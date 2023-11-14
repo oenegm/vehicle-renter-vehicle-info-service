@@ -5,11 +5,11 @@ WORKDIR /app
 # Copy only build files for dependency resolution
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-RUN gradle --no-daemon --parallel dependencies
+RUN gradle --no-daemon --parallel clean dependencies
 
 # Copy the rest of the application code
 COPY . .
-RUN gradle --no-daemon --parallel bootJar
+RUN gradle --no-daemon --parallel bootJar -x test
 
 # Stage 2: Run
 FROM openjdk:17-jdk-alpine

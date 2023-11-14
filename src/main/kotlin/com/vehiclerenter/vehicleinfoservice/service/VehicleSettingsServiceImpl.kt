@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service
 
 @Service
 @Primary
-class VehicleSettingsServiceImpl(val dao: VehicleSettingsDao, val mapper: VehicleSettingsMapper) : VehicleSettingsService {
-
-
-}
+class VehicleSettingsServiceImpl(val dao: VehicleSettingsDao, val mapper: VehicleSettingsMapper) :
+    VehicleSettingsService

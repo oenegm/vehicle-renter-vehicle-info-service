@@ -15,13 +15,11 @@ class VehicleServiceImpl(val dao: VehicleDao, val mapper: VehicleMapper) : Vehic
     override fun getAllVehicles(): List<VehicleDto> = dao.findAll().map(mapper::toDto)
 
     override fun getVehicleById(vehicleId: UUID): VehicleDto? {
-
         return dao.findById(vehicleId)?.let(mapper::toDto)
             ?: throw RuntimeException("Vehicle with id $vehicleId not found")
     }
 
     override fun createVehicle(vehicleDto: VehicleDto): VehicleDto {
-
         return mapper.toDto(
             dao.save(
                 mapper.toEntity(vehicleDto)
@@ -34,9 +32,7 @@ class VehicleServiceImpl(val dao: VehicleDao, val mapper: VehicleMapper) : Vehic
         var updatedVehicle: Vehicle? = dao.findById(vehicleId)
 
         updatedVehicle?.let {
-
             updatedVehicle = mapper.partialUpdate(vehicleDto, it)
-
             return mapper.toDto(
                 dao.save(updatedVehicle!!)
             )
@@ -47,9 +43,7 @@ class VehicleServiceImpl(val dao: VehicleDao, val mapper: VehicleMapper) : Vehic
         val deletedVehicle: Vehicle? = dao.findById(vehicleId)
 
         deletedVehicle?.let {
-
-            it.isDeleted = true
-
+            it.deleted = true
             dao.save(it)
         } ?: throw RuntimeException("Vehicle with id $vehicleId not found")
     }

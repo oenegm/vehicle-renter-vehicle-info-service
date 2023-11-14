@@ -12,6 +12,6 @@ import java.util.*
 class VehicleSettingsDto(
     var id: UUID? = null,
     var vehicleId: UUID? = null,
-    @field:NotNull var isVisible: Boolean? = false,
-    @field:NotNull var isOutOfOrder: Boolean? = false
+    @field:NotNull var visible: Boolean? = false,
+    @field:NotNull var outOfService: Boolean? = false
 ) : Serializable

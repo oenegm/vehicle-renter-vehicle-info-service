@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size
 import lombok.Data
 import java.io.Serializable
 import java.math.BigDecimal
-import java.time.Instant
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -25,18 +25,14 @@ class VehicleDto(
     @field:NotNull @field:Size(max = 45) var color: String? = null,
     @field:NotNull var numberOfDoors: Short? = null,
     @field:NotNull var numberOfSeats: Short? = null,
-    @field:NotNull @field:Size(max = 45) var vehicleType: String? = null,
-    @field:NotNull @field:Size(max = 45) var engineType: String? = null,
-    @field:NotNull @field:Size(max = 45) var fuelType: String? = null,
-    @field:NotNull @field:Size(max = 45) var transmissionType: String? = null,
     @field:NotNull @field:Size(max = 45) var vehicleStatus: String? = null,
     @field:NotNull var pricePerDay: BigDecimal? = null,
     @field:Size(max = 255) var imageLink: String? = null,
     @field:NotNull var successfulRentals: Int? = null,
     @field:NotNull var unsuccessfulRentals: Int? = null,
-    var lastRequestedAt: Instant? = null,
-    var lastRentedAt: Instant? = null,
+    var lastRequestedAt: LocalDateTime? = null,
+    var lastRentedAt: LocalDateTime? = null,
     var vehicleSettingsId: UUID? = null,
-    var vehicleSettingsIsVisible: Boolean? = false,
-    var vehicleSettingsIsOutOfOrder: Boolean? = false,
+    var vehicleSettingsVisible: Boolean? = false,
+    var vehicleSettingsOutOfOrder: Boolean? = false,
 ) : Serializable
