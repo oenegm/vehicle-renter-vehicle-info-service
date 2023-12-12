@@ -61,8 +61,6 @@ services:
     depends_on:
       vehicle-info-db:
         condition: service_healthy
-    #      config-server:
-    #        condition: service_started
     environment:
       - 'DB_URL=jdbc:postgresql://vehicle-info-db:5432/postgres'
       - 'DB_USERNAME=postgres'
