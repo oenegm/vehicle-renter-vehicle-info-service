@@ -1,8 +1,12 @@
 package com.vehiclerenter.vehicleinfoservice.service
 
-import com.vehiclerenter.vehicleinfoservice.dto.BrandDto
+import com.vehiclerenter.vehicleinfoservice.dao.BrandDao
+import org.springframework.context.annotation.Primary
+import org.springframework.stereotype.Service
 
-fun interface BrandService {
+@Service
+@Primary
+class BrandService(private val dao: BrandDao) {
 
-    fun getBrands(): List<BrandDto>
+    fun getBrands() = dao.findAll().map { it.toDto() }
 }

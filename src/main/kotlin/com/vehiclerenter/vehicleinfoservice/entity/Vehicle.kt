@@ -1,5 +1,6 @@
 package com.vehiclerenter.vehicleinfoservice.entity
 
+import com.vehiclerenter.vehicleinfoservice.dto.VehicleDto
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
@@ -9,83 +10,98 @@ import java.util.*
 
 @Entity
 @Table(name = "vehicles")
-class Vehicle {
+class Vehicle(
     @Id
     @GeneratedValue
     @Column(name = "id")
-    var id: UUID? = null
+    var id: UUID? = null,
 
     @NotNull
     @Column(name = "owner_id", nullable = false)
-    lateinit var ownerId: UUID
+    var ownerId: UUID,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
-    var brand: Brand? = null
+    var brand: Brand,
 
     @OneToOne(mappedBy = "vehicle")
-    var vehicleSettings: VehicleSettings? = null
+    var vehicleSettings: VehicleSettings? = null,
 
     @Size(max = 45)
-    @NotNull
     @Column(name = "model", length = 45)
-    var model: String? = null
+    var model: String? = null,
 
     @Size(max = 45)
-    @NotNull
     @Column(name = "year", length = 45)
-    var year: String? = null
+    var year: String? = null,
 
     @Size(max = 255)
-    @NotNull
-    @Column(name = "address", nullable = false)
-    var address: String? = null
+    @Column(name = "address")
+    var address: String? = null,
 
     @Size(max = 45)
-    @NotNull
-    @Column(name = "registration_number", nullable = false, length = 45)
-    var registrationNumber: String? = null
+    @Column(name = "color", length = 45)
+    var color: String? = null,
 
-    @Size(max = 45)
-    @NotNull
-    @Column(name = "color", nullable = false, length = 45)
-    var color: String? = null
-
-    @NotNull
     @Column(name = "number_of_doors", nullable = false)
-    var numberOfDoors: Short? = null
+    var numberOfDoors: Short? = null,
 
-    @NotNull
     @Column(name = "number_of_seats", nullable = false)
-    var numberOfSeats: Short? = null
+    var numberOfSeats: Short? = null,
 
     @Size(max = 45)
-    @NotNull
-    @Column(name = "vehicle_status", nullable = false, length = 45)
-    var vehicleStatus: String? = null
+    @Column(name = "vehicle_status", length = 45)
+    var vehicleStatus: String? = null,
 
-    @NotNull
-    @Column(name = "price_per_day", nullable = false, precision = 11, scale = 2)
-    var pricePerDay: BigDecimal? = null
+    @Column(name = "price_per_day", precision = 11, scale = 2)
+    var pricePerDay: BigDecimal? = null,
 
     @Size(max = 255)
     @Column(name = "image_link")
-    var imageLink: String? = null
+    var imageLink: String? = null,
 
-    @NotNull
-    @Column(name = "successful_rentals", nullable = false)
-    var successfulRentals: Int? = null
+    @Column(name = "successful_rentals")
+    var successfulRentals: Int? = null,
 
-    @NotNull
     @Column(name = "unsuccessful_rentals", nullable = false)
-    var unsuccessfulRentals: Int? = null
+    var unsuccessfulRentals: Int? = null,
 
     @Column(name = "last_requested_at")
-    var lastRequestedAt: LocalDateTime? = null
+    var lastRequestedAt: LocalDateTime? = null,
 
     @Column(name = "last_rented_at")
-    var lastRentedAt: LocalDateTime? = null
+    var lastRentedAt: LocalDateTime? = null,
+) {
+    fun toDto() = VehicleDto(
+        id = this.id,
+        ownerId = this.ownerId,
+        brand = this.brand.toDto(),
+        vehicleSettings = this.vehicleSettings?.toDto(),
+        model = this.model,
+        year = this.year,
+        address = this.address,
+        color = this.color,
+        numberOfDoors = this.numberOfDoors,
+        numberOfSeats = this.numberOfSeats,
+        vehicleStatus = this.vehicleStatus,
+        pricePerDay = this.pricePerDay,
+        imageLink = this.imageLink,
+        successfulRentals = this.successfulRentals,
+        unsuccessfulRentals = this.unsuccessfulRentals,
+        lastRequestedAt = this.lastRequestedAt,
+        lastRentedAt = this.lastRentedAt,
+    )
 
-    @Column(name = "deleted")
-    var deleted: Boolean = false
+    fun partialUpdate(dto: VehicleDto): Vehicle {
+
+        this.model = dto.model ?: this.model
+        this.year = dto.year ?: this.year
+        this.address = dto.address ?: this.address
+        this.color = dto.color ?: this.color
+        this.numberOfDoors = dto.numberOfDoors ?: this.numberOfDoors
+        this.numberOfSeats = dto.numberOfSeats ?: this.numberOfSeats
+        this.pricePerDay = dto.pricePerDay ?: this.pricePerDay
+
+        return this
+    }
 }

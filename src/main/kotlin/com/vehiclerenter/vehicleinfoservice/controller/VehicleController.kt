@@ -1,7 +1,9 @@
 package com.vehiclerenter.vehicleinfoservice.controller
 
 import com.vehiclerenter.vehicleinfoservice.dto.VehicleDto
+import com.vehiclerenter.vehicleinfoservice.dto.VehicleSettingsDto
 import com.vehiclerenter.vehicleinfoservice.service.VehicleService
+import com.vehiclerenter.vehicleinfoservice.service.VehicleSettingsService
 import org.springframework.hateoas.CollectionModel
 import org.springframework.hateoas.RepresentationModel
 import org.springframework.hateoas.server.mvc.linkTo
@@ -12,11 +14,10 @@ import java.util.*
 
 @RestController
 @RequestMapping("api/v1/vehicles")
-class VehicleController(val service: VehicleService) {
+class VehicleController(private val service: VehicleService, private val settingsService: VehicleSettingsService) {
 
     @GetMapping
     fun getVehicles(
-        @RequestHeader("Accept-Language", required = false, defaultValue = "ENGLISH") locale: Locale
     ): ResponseEntity<CollectionModel<VehicleDto>> {
 
         val vehicles: List<VehicleDto> = service.getAllVehicles()
@@ -27,10 +28,10 @@ class VehicleController(val service: VehicleService) {
                 CollectionModel
                     .of(vehicles)
                     .add(
-                        linkTo<VehicleController> { getVehicles(locale) }.withSelfRel(),
-                        linkTo<VehicleController> { getVehicleById(UUID.randomUUID(), locale) }.withSelfRel(),
+                        linkTo<VehicleController> { getVehicles() }.withSelfRel(),
+                        linkTo<VehicleController> { getVehicleById(UUID.randomUUID()) }.withSelfRel(),
                         // TODO: make sure this the correct way to put it
-                        linkTo<BrandController> { getBrands(locale) }.withSelfRel(),
+                        linkTo<BrandController> { getBrands() }.withSelfRel(),
                     )
             )
     }
@@ -38,7 +39,6 @@ class VehicleController(val service: VehicleService) {
     @GetMapping("{vehicleId}")
     fun getVehicleById(
         @PathVariable("vehicleId") vehicleId: UUID,
-        @RequestHeader("Accept-Language", required = false, defaultValue = "ENGLISH") locale: Locale,
     ): ResponseEntity<RepresentationModel<*>> {
 
         val vehicle: VehicleDto? = service.getVehicleById(vehicleId)
@@ -48,8 +48,8 @@ class VehicleController(val service: VehicleService) {
                 RepresentationModel
                     .of(vehicle)
                     .add(
-                        linkTo<VehicleController> { getVehicleById(vehicleId, locale) }.withSelfRel(),
-                        linkTo<BrandController> { getBrands(locale) }.withSelfRel()
+                        linkTo<VehicleController> { getVehicleById(vehicleId) }.withSelfRel(),
+                        linkTo<BrandController> { getBrands() }.withSelfRel()
                     )
             )
     }
@@ -57,7 +57,6 @@ class VehicleController(val service: VehicleService) {
     @PostMapping
     fun createVehicle(
         @RequestBody vehicleDto: VehicleDto,
-        @RequestHeader("Accept-Language", required = false, defaultValue = "ENGLISH") locale: Locale,
     ): ResponseEntity<RepresentationModel<*>> {
 
         val vehicle = service.createVehicle(vehicleDto)
@@ -68,8 +67,8 @@ class VehicleController(val service: VehicleService) {
                 RepresentationModel
                     .of(vehicle)
                     .add(
-                        linkTo<VehicleController> { getVehicleById(vehicle.id!!, locale) }.withSelfRel(),
-                        linkTo<BrandController> { getBrands(locale) }.withSelfRel()
+                        linkTo<VehicleController> { getVehicleById(vehicle.id!!) }.withSelfRel(),
+                        linkTo<BrandController> { getBrands() }.withSelfRel()
                     )
             )
     }
@@ -78,7 +77,6 @@ class VehicleController(val service: VehicleService) {
     fun updateVehicle(
         @PathVariable("vehicleId") vehicleId: UUID,
         @RequestBody vehicleDto: VehicleDto,
-        @RequestHeader("Accept-Language", required = false, defaultValue = "ENGLISH") locale: Locale,
     ): ResponseEntity<RepresentationModel<*>> {
 
         val vehicle: VehicleDto = service.updateVehicle(vehicleId, vehicleDto)
@@ -88,8 +86,26 @@ class VehicleController(val service: VehicleService) {
                 RepresentationModel
                     .of(vehicle)
                     .add(
-                        linkTo<VehicleController> { getVehicleById(vehicle.id!!, locale) }.withSelfRel(),
-                        linkTo<BrandController> { getBrands(locale) }.withSelfRel()
+                        linkTo<VehicleController> { getVehicleById(vehicleId) }.withSelfRel(),
+                        linkTo<BrandController> { getBrands() }.withSelfRel()
+                    )
+            )
+    }
+
+    @PutMapping("{vehicleId}/settings")
+    fun updateVehicleSettings(
+        @PathVariable("vehicleId") vehicleId: UUID,
+        @RequestBody settingsDto: VehicleSettingsDto,
+    ): ResponseEntity<RepresentationModel<*>> {
+
+        val vehicleSettings = settingsService.updateVehicleSettings(vehicleId, settingsDto)
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(
+                RepresentationModel
+                    .of(vehicleSettings)
+                    .add(
+                        linkTo<VehicleController> { getVehicleById(vehicleId) }.withSelfRel()
                     )
             )
     }
@@ -97,7 +113,6 @@ class VehicleController(val service: VehicleService) {
     @DeleteMapping("{vehicleId}")
     fun deleteVehicleSoft(
         @PathVariable("vehicleId") vehicleId: UUID,
-        @RequestHeader("Accept-Language", required = false, defaultValue = "ENGLISH") locale: Locale,
     ): ResponseEntity<RepresentationModel<*>> {
 
         service.deleteVehicleSoft(vehicleId)
@@ -107,8 +122,8 @@ class VehicleController(val service: VehicleService) {
                 RepresentationModel
                     .of(null)
                     .add(
-                        linkTo<VehicleController> { getVehicles(locale) }.withSelfRel(),
-                        linkTo<BrandController> { getBrands(locale) }.withSelfRel()
+                        linkTo<VehicleController> { getVehicles() }.withSelfRel(),
+                        linkTo<BrandController> { getBrands() }.withSelfRel()
                     )
             )
     }

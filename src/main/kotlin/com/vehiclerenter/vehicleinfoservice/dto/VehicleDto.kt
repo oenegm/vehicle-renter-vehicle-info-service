@@ -1,8 +1,8 @@
 package com.vehiclerenter.vehicleinfoservice.dto
 
-import jakarta.validation.constraints.NotNull
+import com.vehiclerenter.vehicleinfoservice.entity.Brand
+import com.vehiclerenter.vehicleinfoservice.entity.Vehicle
 import jakarta.validation.constraints.Size
-import lombok.Data
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -11,28 +11,40 @@ import java.util.*
 /**
  * DTO for {@link com.vehiclerenter.vehicleinfoservice.entity.Vehicle}
  */
-@Data
-class VehicleDto(
+data class VehicleDto(
     var id: UUID? = null,
-    @field:NotNull var ownerId: UUID? = null,
-    var brandId: UUID? = null,
-    var brandName: String? = null,
-    var brandImageLink: String? = null,
-    @field:NotNull @field:Size(max = 45) var model: String? = null,
-    @field:NotNull @field:Size(max = 45) var year: String? = null,
-    @field:NotNull @field:Size(max = 255) var address: String? = null,
-    @field:NotNull @field:Size(max = 45) var registrationNumber: String? = null,
-    @field:NotNull @field:Size(max = 45) var color: String? = null,
-    @field:NotNull var numberOfDoors: Short? = null,
-    @field:NotNull var numberOfSeats: Short? = null,
-    @field:NotNull @field:Size(max = 45) var vehicleStatus: String? = null,
-    @field:NotNull var pricePerDay: BigDecimal? = null,
+    var ownerId: UUID,
+    var brand: BrandDto,
+    var vehicleSettings: VehicleSettingsDto?,
+    @field:Size(max = 45) var model: String? = null,
+    @field:Size(max = 45) var year: String? = null,
+    @field:Size(max = 255) var address: String? = null,
+    @field:Size(max = 45) var color: String? = null,
+    var numberOfDoors: Short? = null,
+    var numberOfSeats: Short? = null,
+    @field:Size(max = 45) var vehicleStatus: String? = null,
+    var pricePerDay: BigDecimal? = null,
     @field:Size(max = 255) var imageLink: String? = null,
-    @field:NotNull var successfulRentals: Int? = null,
-    @field:NotNull var unsuccessfulRentals: Int? = null,
+    var successfulRentals: Int? = null,
+    var unsuccessfulRentals: Int? = null,
     var lastRequestedAt: LocalDateTime? = null,
-    var lastRentedAt: LocalDateTime? = null,
-    var vehicleSettingsId: UUID? = null,
-    var vehicleSettingsVisible: Boolean? = false,
-    var vehicleSettingsOutOfOrder: Boolean? = false,
-) : Serializable
+    var lastRentedAt: LocalDateTime? = null
+) : Serializable {
+    fun toEntity() = Vehicle(
+        ownerId = this.ownerId,
+        brand = Brand(id = this.brand.id),
+        model = this.model,
+        year = this.year,
+        address = this.address,
+        color = this.color,
+        numberOfDoors = this.numberOfDoors,
+        numberOfSeats = this.numberOfSeats,
+        vehicleStatus = this.vehicleStatus,
+        pricePerDay = this.pricePerDay,
+        imageLink = this.imageLink,
+        successfulRentals = this.successfulRentals,
+        unsuccessfulRentals = this.unsuccessfulRentals,
+        lastRequestedAt = this.lastRequestedAt,
+        lastRentedAt = this.lastRentedAt,
+    )
+}

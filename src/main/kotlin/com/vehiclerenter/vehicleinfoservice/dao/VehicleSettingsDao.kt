@@ -8,4 +8,6 @@ interface VehicleSettingsDao {
     fun findById(id: UUID): VehicleSettings?
 
     fun findByVehicleId(vehicleId: UUID): VehicleSettings?
+
+    fun save(vehicleSettings: VehicleSettings): VehicleSettings
 }

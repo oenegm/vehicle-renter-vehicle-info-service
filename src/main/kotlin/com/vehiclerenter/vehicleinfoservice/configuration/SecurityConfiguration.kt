@@ -17,8 +17,6 @@ class SecurityConfiguration {
             .authorizeHttpRequests { authorize ->
                 authorize
 
-                    .requestMatchers("/actuator/**").permitAll()
-                    .requestMatchers("/health").permitAll()
                     .requestMatchers(HttpMethod.OPTIONS).permitAll()
 
                     .requestMatchers(HttpMethod.GET, "/api/v1/brands").permitAll()

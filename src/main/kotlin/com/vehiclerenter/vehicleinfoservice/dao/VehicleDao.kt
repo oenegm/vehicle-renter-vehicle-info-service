@@ -10,4 +10,6 @@ interface VehicleDao {
     fun findById(id: UUID): Vehicle?
 
     fun save(vehicle: Vehicle): Vehicle
+
+    fun delete(vehicle: Vehicle)
 }

@@ -5,7 +5,7 @@ import com.vehiclerenter.vehicleinfoservice.repository.BrandRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-class BrandDaoJpaImpl(val repository: BrandRepository) : BrandDao {
+class BrandDaoJpaImpl(private val repository: BrandRepository) : BrandDao {
 
     override fun findAll(): List<Brand> = repository.findAll()
 }
